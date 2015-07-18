@@ -71,10 +71,10 @@ class SlickzTest extends TestConfig {
       val testOne = db.withTransactionPure(failingTransaction(_))
       val testTwo = db.withSessionPure(implicit s => s.withTransactionPure(failingTransaction))
 
-      testOne.handle { case _ => Nil }.run shouldBe Nil
-      db.withSession(implicit s => Schema.persons.firstOption) shouldBe None
-      testTwo.handle { case _ => Nil }.run shouldBe Nil
-      db.withSession(implicit s => Schema.persons.firstOption) shouldBe None
+      for(t <- List(testOne, testTwo)) {
+        t.handle { case _ => Nil }.run shouldBe Nil
+        db.withSession(implicit s => Schema.persons.firstOption) shouldBe None
+      }
     }
   }
 }
