@@ -62,7 +62,7 @@ class SlickzTest extends TestConfig {
       }
 
       an[Exception] should be thrownBy task.run
-      task.handle { case _ => () }.run shouldBe()
+      task.handle { case _ => () }.run shouldBe(())
     }
   }
 
