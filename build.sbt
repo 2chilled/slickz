@@ -15,7 +15,6 @@ lazy val dependencySettings = {
   val testDependencies = Seq(
     "org.scalatest" %% "scalatest" % "2.2.5",
     "org.scalacheck" %% "scalacheck" % "1.12.4",
-    "org.scalamock" %% "scalamock-scalatest-support" % "3.2.2",
     "com.h2database" % "h2" % "1.4.187"
   ).map(_ % "test")
 
@@ -26,7 +25,6 @@ lazy val dependencySettings = {
     ),
     libraryDependencies ++= Seq(
       "org.scalaz" %% "scalaz-core" % scalazVersion,
-      "org.scalaz" %% "scalaz-effect" % scalazVersion,
       "org.scalaz" %% "scalaz-concurrent" % scalazVersion,
       "com.typesafe.slick" %% "slick" % "2.1.0",
       "org.slf4j" % "slf4j-nop" % "1.6.4"
