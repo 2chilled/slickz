@@ -1,13 +1,14 @@
 lazy val root = (project in file(".")).
   settings(
     name := "slickz",
-    version := "0.1",
+    version := "0.1.1",
     scalaVersion := "2.11.7",
     scalacOptions ++= Seq(
       "-feature",
       "-deprecation"
-    )
-  ).settings(dependencySettings)
+    ),
+    organization := "com.github.2chilled"
+  ).settings(dependencySettings, publishSettings)
 
 lazy val dependencySettings = {
   val scalazVersion = "7.1.3"
@@ -31,4 +32,37 @@ lazy val dependencySettings = {
     ) ++ testDependencies
   )
 }
+
+lazy val publishSettings = Seq(
+  publishMavenStyle := true,
+  publishTo := {
+    val nexus = "https://oss.sonatype.org/"
+    if (isSnapshot.value)
+      Some("snapshots" at nexus + "content/repositories/snapshots")
+    else
+      Some("releases" at nexus + "service/local/staging/deploy/maven2")
+  },
+  publishArtifact in Test := false,
+  pomIncludeRepository := { _ => false },
+  pomExtra := (
+    <url>https://github.com/2chilled/slickz</url>
+      <licenses>
+        <license>
+          <name>BSD-style</name>
+          <url>http://www.opensource.org/licenses/bsd-license.php</url>
+          <distribution>repo</distribution>
+        </license>
+      </licenses>
+      <scm>
+        <url>git@github.com:2chilled/slickz.git</url>
+        <connection>scm:git:git@github.com:2chilled/slickz.git</connection>
+      </scm>
+      <developers>
+        <developer>
+          <id>mherrmann</id>
+          <name>Matthias Herrmann</name>
+        </developer>
+      </developers>
+    )
+)
 
