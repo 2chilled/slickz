@@ -1,10 +1,9 @@
 package org.slickz
 
-import slick.jdbc.JdbcBackend
-
+import scala.slick.jdbc.JdbcBackend
 import scalaz.concurrent.Task
 
-object syntax {
+trait Syntax {
 
   implicit class JdbcBackendDatabaseSyntax(b: JdbcBackend#Database) {
     def withSessionPure[T](f: JdbcBackend#Session => Task[T]) = Slickz.withSessionPure(b)(f)
@@ -17,3 +16,5 @@ object syntax {
   }
 
 }
+
+object syntax extends Syntax
